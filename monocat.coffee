@@ -5,7 +5,7 @@ cleanCss = require 'clean-css'
 
 
 args = process.argv
-initialDir = __dirname
+initialDir = process.cwd()
 $ = null
 fileName = null
 len = 0
