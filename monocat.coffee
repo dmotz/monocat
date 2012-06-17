@@ -59,7 +59,7 @@ init = ->
         if tag is 'script'
           parsed = uglify.parser.parse data.toString()
           compressed = uglify.uglify.ast_squeeze parsed
-          $el.after '<script>' + uglify.uglify.gen_code(compressed) + '</script>'
+          $el.after '<script type="text/javascript">' + uglify.uglify.gen_code(compressed) + '</script>'
         else if tag is 'style'
           $el.after '<style>' + cleanCss.process(data.toString()) + '</style>'
           
