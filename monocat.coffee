@@ -78,7 +78,7 @@ deliver = ->
     split = fileName.split '.'
     ext = split.pop()
     outputFile = split.join '.'
-    outputFile += '_monocat' + '.' + ext
+    outputFile += '_monocat.' + ext
   
   fs.writeFile outputFile, $.html(), (err) ->
     if err
