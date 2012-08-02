@@ -57,9 +57,11 @@ init = ->
           process.exit 1
 
         if tag is 'script'
+          type = $el.attr 'type'
+          typeString = if type then " type=\"#{type}\"" else ''
           parsed = uglify.parser.parse data.toString()
           compressed = uglify.uglify.ast_squeeze parsed
-          $el.after '<script type="text/javascript">' + uglify.uglify.gen_code(compressed) + '</script>'
+          $el.after "<script#{typeString}>" + uglify.uglify.gen_code(compressed) + '</script>'
         else if tag is 'style'
           $el.after '<style>' + cleanCss.process(data.toString()) + '</style>'
           
