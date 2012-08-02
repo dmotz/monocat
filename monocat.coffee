@@ -1,3 +1,5 @@
+#!/usr/bin/env coffee
+
 fs       = require 'fs'
 uglify   = require 'uglify-js'
 cheerio  = require 'cheerio'
