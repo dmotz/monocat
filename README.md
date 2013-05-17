@@ -41,7 +41,3 @@ Pass an optional output filename as the second argument:
 ```
 $ monocat src/index.html build/index.html
 ```
-
-### Example:
-[ChainCal](http://chaincalapp.com) (view source)
-

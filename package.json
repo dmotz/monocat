@@ -9,12 +9,12 @@
   "repository" : { "type" : "git", "url" : "http://github.com/dmotz/monocat.git" },
   "description" : "Write scripts and styles inline into html for optimized deployment",
   "keywords" : ["build", "deployment", "frontend", "compressor", "cli"],
-  "version": "0.1.0",
+  "version": "0.1.1",
   "preferGlobal" : "true",
   "dependencies": {
-    "coffee-script" : "1.3.x",
-    "cheerio": "0.8.x",
-    "uglify-js": "1.3.x",
-    "clean-css": "0.4.x"
+    "coffee-script" : "1.6.x",
+    "cheerio": "0.11.x",
+    "uglify-js": "2.3.x",
+    "clean-css": "1.0.x"
   }
 }
