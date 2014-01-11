@@ -5,7 +5,7 @@
       "name" : "Dan Motzenbecker",
       "url" : "http://github.com/dmotz"
   },
-  "bin": { "monocat" : "./monocat.coffee" },
+  "bin": { "monocat" : "./index.js" },
   "repository" : { "type" : "git", "url" : "http://github.com/dmotz/monocat.git" },
   "description" : "Write scripts and styles inline into html for optimized deployment",
   "keywords" : ["build", "deployment", "frontend", "compressor", "cli"],
