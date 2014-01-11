@@ -17,37 +17,43 @@ init = ->
   filePath = args[2]
   fileName = path.basename filePath
   dirName  = path.dirname filePath
+  outDir   = path.dirname args[3]
 
   fs.readFile filePath, (err, data) ->
     if err
       logErr "cannot read `#{ filePath }`"
       process.exit 1
 
-    $ = cheerio.load data
-    targets = $ '.monocat'
-    len = targets.length
-    if len is 0
+    $         = cheerio.load data
+    targets   = $ '.monocat'
+    total     = targets.length
+    completed = 0
+
+    if total is 0
       logErr 'found no elements with `monocat` class... exiting.'
       process.exit 1
 
     log 'gathering assets...'
 
     targets.each (i, el) ->
-      $el = $ el
+      $el     = $ el
       tagType = el.name
 
       if tagType is 'script' and $el.attr 'src'
-        type = $el.attr 'type'
+        type       = $el.attr 'type'
         typeString = if type then " type=\"#{ type }\"" else ''
-        $el.after("<script#{ typeString }>#{ uglify.minify($el.attr 'src').code }</script>").remove()
-        deliver ++completed
+        srcPath    = path.join dirName, $el.attr 'src'
+
+        $el.after("<script#{ typeString }>#{ uglify.minify(srcPath).code }</script>")
+          .remove()
         deliver() if ++completed is total
 
       else if tagType is 'link' and $el.attr('rel') is 'stylesheet'
-        path = $el.attr 'href'
-        fs.readFile path, (err, data) ->
+        srcPath = path.join dirName, $el.attr 'href'
+
+        fs.readFile srcPath, (err, data) ->
           if err
-            logErr "cannot read `#{ path }`"
+            logErr "cannot read `#{ srcPath }`"
             process.exit 1
 
           min   = new CleanCss().minify data.toString()
@@ -66,19 +72,18 @@ init = ->
 
 deliver = ->
   if args[3]
-    outputFile = args[3]
+    outputPath = args[3]
   else
-    split = fileName.split '.'
-    ext = split.pop()
-    outputFile = split.join '.'
-    outputFile += '_monocat.' + ext
+    split      = fileName.split '.'
+    ext        = split.pop()
+    outputPath = split.join('.') + '_monocat.' + ext
 
-  fs.writeFile outputFile, $.html(), (err) ->
+  fs.writeFile outputPath, $.html(), (err) ->
     if err
-      logErr "cannot write to `#{ outputFile }`"
+      logErr "cannot write to `#{ outputPath }`"
       process.exit 1
 
-    log "output to `#{ outputFile }`"
+    log "output to `#{ outputPath }`"
 
 
 init()
