@@ -51,7 +51,13 @@ init = ->
             process.exit 1
 
           min   = new CleanCss().minify data.toString()
+          urlRx = /url\((.*?)\)/ig
+          while url = urlRx.exec min
+            continue if /^['"]?data/i.test url[1]
+            rel = path.relative outDir, path.join path.dirname(srcPath), url[1]
+            min = min.replace url[1], rel
 
+          $el.after("<style>#{ min }</style>").remove()
           deliver() if ++completed is total
 
       else
