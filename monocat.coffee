@@ -50,8 +50,7 @@ init = ->
             logErr "cannot read `#{ path }`"
             process.exit 1
 
-          $el.after("<style>#{ cleanCss.process data.toString() }</style>").remove()
-          deliver ++completed
+          min   = new CleanCss().minify data.toString()
 
           deliver() if ++completed is total
 
