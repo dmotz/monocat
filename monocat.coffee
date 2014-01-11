@@ -1,14 +1,12 @@
 fs       = require 'fs'
+path     = require 'path'
 uglify   = require 'uglify-js'
+CleanCss = require 'clean-css'
 cheerio  = require 'cheerio'
-cleanCss = require 'clean-css'
-
-
-args = process.argv
-$ = fileName = null
-len = completed = 0
-log        = console.log.bind   console, '\x1b[32m  '
-logErr     = console.error.bind console, '\x1b[31m  '
+args     = process.argv
+log      = console.log.bind   console, '\x1b[32m  '
+logErr   = console.error.bind console, '\x1b[31m  '
+fileName = $ = null
 
 
 init = ->
