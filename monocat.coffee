@@ -17,12 +17,10 @@ init = ->
     process.exit 1
 
   filePath = args[2]
-  splitPath = filePath.split '/'
-  fileName = splitPath.pop()
-  dir = splitPath.join '/'
+  fileName = path.basename filePath
+  dirName  = path.dirname filePath
 
-
-  fs.readFile fileName, (err, data) ->
+  fs.readFile filePath, (err, data) ->
     if err
       logErr "cannot read `#{ filePath }`"
       process.exit 1
