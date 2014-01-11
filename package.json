@@ -3,7 +3,7 @@
   "homepage" : "http://github.com/dmotz/monocat",
   "author" : {
       "name" : "Dan Motzenbecker",
-      "url" : "http://github.com/dmotz"
+      "url" : "http://oxism.com"
   },
   "bin": { "monocat" : "./index.js" },
   "repository" : { "type" : "git", "url" : "http://github.com/dmotz/monocat.git" },
