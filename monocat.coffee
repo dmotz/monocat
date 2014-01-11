@@ -5,7 +5,6 @@ cleanCss = require 'clean-css'
 
 
 args = process.argv
-initialDir = process.cwd()
 $ = fileName = null
 len = completed = 0
 log        = console.log.bind   console, '\x1b[32m  '
@@ -22,7 +21,6 @@ init = ->
   fileName = splitPath.pop()
   dir = splitPath.join '/'
 
-  process.chdir dir if dir
 
   fs.readFile fileName, (err, data) ->
     if err
@@ -61,7 +59,6 @@ init = ->
 
 deliver = ->
   return unless completed is len
-  process.chdir initialDir
       else
         deliver() if ++completed is total
 
