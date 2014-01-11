@@ -10,11 +10,13 @@ args = process.argv
 initialDir = process.cwd()
 $ = fileName = null
 len = completed = 0
+log        = console.log.bind   console, '\x1b[32m  '
+logErr     = console.error.bind console, '\x1b[31m  '
 
 
 init = ->
   if args.length <= 2
-    console.log '\x1b[31m' + 'please pass an html file' + '\x1b[0m'
+    logErr 'please pass an html file'
     process.exit 1
 
   filePath = args[2]
@@ -26,17 +28,17 @@ init = ->
 
   fs.readFile fileName, (err, data) ->
     if err
-      console.log '\x1b[31m' + 'cannot read `' + filePath + '`\x1b[0m'
+      logErr "cannot read `#{ filePath }`"
       process.exit 1
 
     $ = cheerio.load data
     targets = $ '.monocat'
     len = targets.length
     if len is 0
-      console.log '\x1b[31m' + 'found no elements with `monocat` class... exiting.' + '\x1b[0m'
+      logErr 'found no elements with `monocat` class... exiting.'
       process.exit 1
 
-    console.log '\x1b[33m' + 'gathering assets...' + '\x1b[0m'
+    log 'gathering assets...'
 
     targets.each (i, el) ->
       $el = $ el
@@ -52,7 +54,7 @@ init = ->
         path = $el.attr 'href'
         fs.readFile path, (err, data) ->
           if err
-            console.log '\x1b[31m' + 'cannot read `' + path + '`\x1b[0m'
+            logErr "cannot read `#{ path }`"
             process.exit 1
 
           $el.after("<style>#{ cleanCss.process data.toString() }</style>").remove()
@@ -73,10 +75,10 @@ deliver = ->
 
   fs.writeFile outputFile, $.html(), (err) ->
     if err
-      console.log '\x1b[31m' + 'cannot write to `' + outputFile + '`\x1b[0m'
+      logErr "cannot write to `#{ outputFile }`"
       process.exit 1
 
-    console.log '\x1b[32m' + 'output to `' + outputFile + '`\x1b[0m'
+    log "output to `#{ outputFile }`"
 
 
 init()
