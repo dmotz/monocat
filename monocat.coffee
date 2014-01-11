@@ -62,6 +62,8 @@ init = ->
 deliver = ->
   return unless completed is len
   process.chdir initialDir
+      else
+        deliver() if ++completed is total
 
   if args[3]
     outputFile = args[3]
