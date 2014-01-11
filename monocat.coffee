@@ -41,6 +41,7 @@ init = ->
         typeString = if type then " type=\"#{ type }\"" else ''
         $el.after("<script#{ typeString }>#{ uglify.minify($el.attr 'src').code }</script>").remove()
         deliver ++completed
+        deliver() if ++completed is total
 
       else if tagType is 'link' and $el.attr('rel') is 'stylesheet'
         path = $el.attr 'href'
@@ -52,12 +53,13 @@ init = ->
           $el.after("<style>#{ cleanCss.process data.toString() }</style>").remove()
           deliver ++completed
 
+          deliver() if ++completed is total
 
-deliver = ->
-  return unless completed is len
       else
         deliver() if ++completed is total
 
+
+deliver = ->
   if args[3]
     outputFile = args[3]
   else
