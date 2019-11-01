@@ -15,6 +15,6 @@
     "coffee-script" : "1.7.x",
     "cheerio": "0.13.x",
     "uglify-js": "2.4.x",
-    "clean-css": "2.1.x"
+    "clean-css": "4.2.x"
   }
 }
